@@ -1,22 +1,4 @@
-/*
-
-PseudoCode :
-
-1 - Kullanıcı adını gir. +
-2 - Eğer kullanıcı adı doğruysa Şifre ekranına yönlendir. Değilse Tekrar Dene. +
-3 - Şifreni Gir. +
-4 - Eğer şifre doğruysa hesap detaylarına git. Değilse tekrar dene. (3 deneme hakkı var.) +
-5 - Yatırılacak tutarı gir. (Alt limit : 10 - Üst limit : 5000)
-6 - Parayı yatır.
-7 - Eğer yatırılacak tutar değeri ile yatırılan tutar değeri eşitse para yatırıldı. Değilse Tekrar Dene.
-8 - Bakiye Öğren.
-9 - Para çekmek için tutar gir. (Üst Limit : 2000)
-
-*/
-
-
 #include <iostream>
-#include <locale.h>
 using namespace std;
 
 static int bakiye;
@@ -31,16 +13,16 @@ int paraYatir(int yatirilacakTutar,int yatirilanTutar)
 		if (yatirilacakTutar == yatirilanTutar)
 		{
 			bakiye = bakiye + yatirilanTutar;
-			cout << "Para Yatırma İşlemi Başarılı...\nToplam Bakiye : " << bakiye << "\n";
+			cout << "Deposit Successful...\nTotal Balance : " << bakiye << "\n";
 		}
 		else
 		{
-			cout << "Yatırılacak tutar ile yatırılan tutar eşleşmiyor. \n";
+			cout << "Amounts does not match. \n";
 		}
 	}
 	else
 	{
-		cout << "Günlük para yatırma limitiniz 5000 TL'dir. \n";
+		cout << "Your daily deposit limit is 5000 TL. \n";
 	}
 
 	
@@ -55,16 +37,16 @@ int paraCek(int cekilecekTutar)
 		if (bakiye >= cekilecekTutar)
 		{
 			bakiye = bakiye - cekilecekTutar;
-			cout << "Para Çekme İşlemi Başarılı.\nÇekilen Tutar : " << cekilecekTutar << "\nKalan Bakiye : " << bakiye << "\n";
+			cout << "Whitdrawal Successful.\nAmount withdrawn : " << cekilecekTutar << "\nAvailable balance : " << bakiye << "\n";
 		}
 		else
 		{
-			cout << "Bakiyeniz Yetersizdir. Bakiyeniz : " << bakiye << "\n";
+			cout << "insufficient balance. Your balance : " << bakiye << "\n";
 		}
 	}
 	else
 	{
-		cout << "Günlük çekim limitiniz 2000 TL'dir. \n";
+		cout << "Your daily withdrawal limit is 2000 TL. \n";
 	}
 	return (0);
 }
@@ -75,21 +57,21 @@ int secenekSec(int secenekGiris)
 	{
 	case 1:
 		int yatirilacak;
-		cout << "Yatırılacak Tutarı Girin : ";
+		cout << "Enter amount to be deposited : ";
 		cin >> yatirilacak;
 		int yatirilan;
-		cout << "Yatırılan Tutar Girin : ";
+		cout << "Enter amount deposited : ";
 		cin >> yatirilan;
 		paraYatir(yatirilacak, yatirilan);
 		break;
 	case 2:
 		int cekilecek;
-		cout << "Çekilecek Tutar Girin : ";
+		cout << "Enter amount to be withdrawn : ";
 		cin >> cekilecek;
 		paraCek(cekilecek);
 		break;
 	case 3:
-		cout << "Toplam Bakiyeniz : " << bakiye << "\n";
+		cout << "Total Balance : " << bakiye << "\n";
 		break;
 	case 4:
 		exit(secenekGiris);
@@ -102,39 +84,35 @@ int secenekSec(int secenekGiris)
 
 int main() {
 
-	setlocale(LC_ALL, "Turkish"); // Türkçe Karakter Set
-
-	/*********************************************** Kullanıcı Girişi Başlangıç ***********************************************/ 
-
 	int hesapNumarasi, parola;
 
-	cout << "Hesap Numaranı Gir : ";
+	cout << "Enter Your Account Number : ";
 	cin >> hesapNumarasi;
 	
 	
-	while (hesapNumarasi != hesapNo) // Hesap numarası doğru girilene kadar döngü çalışır.
+	while (hesapNumarasi != hesapNo)
 	{
-		cout << "Tekrar Dene (Hesap Numarası) : ";
+		cout << "Try Again (Account Number) : ";
 		cin >> hesapNumarasi;
 	}
 
-	if (hesapNumarasi == hesapNo) // Eğer hesap numarası doğru girilmişse şifre girişine yönlendir.
+	if (hesapNumarasi == hesapNo)
 	{
-		cout << "Şifreni Gir : ";
+		cout << "Enter Your Password : ";
 		cin >> parola;
 	}
 
-	if (parola == sifre) // Eğer şifre doğru ise giriş başarılı
+	if (parola == sifre)
 	{
 		while (secenekSec(5) != 5)
 		{
-			cout << "1 - Para Yatır \n2 - Para Çek \n3 - Bakiye Göster \n4 - Çıkış Yap \nSeçim Yap : ";
+			cout << "1 - Deposit Money \n2 - Whitdraw Money \n3 - View Balance \n4 - Exit \nPlease Do a Choose : ";
 			int sec;
 			cin >> sec;
 			secenekSec(sec);
 		}
 	}
-	else // Değilse tekrar denemek için 3 hak daha verir.
+	else
 	{
 		for (int i = 1; i < 5; i++)
 		{
@@ -144,7 +122,7 @@ int main() {
 				{
 					while (secenekSec(5) != 5)
 					{
-						cout << "1 - Para Yatır \n2 - Para Çek \n3 - Bakiye Göster \n4 - Çıkış Yap \nSeçim Yap : ";
+						cout << "1 - Deposit Money \n2 - Whitdraw Money \n3 - View Balance \n4 - Exit \nPlease Do a Choose : ";
 						int sec;
 						cin >> sec;
 						secenekSec(sec);
@@ -152,16 +130,14 @@ int main() {
 				}
 				else
 				{
-					cout << "Tekrar Dene " << "( " << i << ".Deneme ) : ";
+					cout << "Try Again " << "( " << i << ".trying ) : ";
 					cin >> parola;
 				}
 			}
 			else
 			{
-				cout << "Birçok kez yanlış şifre girdin. Daha sonra Tekrar Dene...";
+				cout << "You have entered incorrectly many times. Please try again later...";
 			}
 		}
 	}
-
-	/*********************************************** Kullanıcı Girişi Bitiş ***********************************************/
 }
