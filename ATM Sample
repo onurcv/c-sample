@@ -25,32 +25,47 @@ static int sifre = 55;
 
 int paraYatir(int yatirilacakTutar,int yatirilanTutar)
 {
-	while(yatirilacakTutar != yatirilanTutar)
+	
+	if (yatirilacakTutar <= 5000)
 	{
-		cout << "Yatırılacak tutar ile yatırılan tutar eşleşmiyor.";
+		if (yatirilacakTutar == yatirilanTutar)
+		{
+			bakiye = bakiye + yatirilanTutar;
+			cout << "Para Yatırma İşlemi Başarılı...\nToplam Bakiye : " << bakiye << "\n";
+		}
+		else
+		{
+			cout << "Yatırılacak tutar ile yatırılan tutar eşleşmiyor. \n";
+		}
+	}
+	else
+	{
+		cout << "Günlük para yatırma limitiniz 5000 TL'dir. \n";
 	}
 
-	if (yatirilacakTutar == yatirilanTutar)
-	{
-		bakiye = bakiye + yatirilanTutar;
-		cout << "Para Yatırma İşlemi Başarılı...\nToplam Bakiye : " << bakiye;
-	}
+	
 	return (0);
 }
 
 int paraCek(int cekilecekTutar)
 {
-	while (bakiye <= cekilecekTutar)
+	
+	if (cekilecekTutar <= 2000)
 	{
-		cout << "Bakiyeniz Yetersizdir. Bakiyeniz : " << bakiye;
+		if (bakiye >= cekilecekTutar)
+		{
+			bakiye = bakiye - cekilecekTutar;
+			cout << "Para Çekme İşlemi Başarılı.\nÇekilen Tutar : " << cekilecekTutar << "\nKalan Bakiye : " << bakiye << "\n";
+		}
+		else
+		{
+			cout << "Bakiyeniz Yetersizdir. Bakiyeniz : " << bakiye << "\n";
+		}
 	}
-
-	if (bakiye >= cekilecekTutar)
+	else
 	{
-		bakiye = bakiye - cekilecekTutar;
-		cout << "Para Çekme İşlemi Başarılı.\nÇekilen Tutar : " << cekilecekTutar << "\nKalan Bakiye : " << bakiye;
+		cout << "Günlük çekim limitiniz 2000 TL'dir. \n";
 	}
-
 	return (0);
 }
 
@@ -62,30 +77,27 @@ int secenekSec(int secenekGiris)
 		int yatirilacak;
 		cout << "Yatırılacak Tutarı Girin : ";
 		cin >> yatirilacak;
-
 		int yatirilan;
 		cout << "Yatırılan Tutar Girin : ";
 		cin >> yatirilan;
 		paraYatir(yatirilacak, yatirilan);
+		break;
 	case 2:
 		int cekilecek;
 		cout << "Çekilecek Tutar Girin : ";
 		cin >> cekilecek;
 		paraCek(cekilecek);
+		break;
+	case 3:
+		cout << "Toplam Bakiyeniz : " << bakiye << "\n";
+		break;
+	case 4:
+		exit(secenekGiris);
+		break;
 	default:
 		break;
 	}
 	return (0);
-}
-
-void bakiyeGoster() 
-{
-	cout << bakiye;
-}
-
-void cikisYap()
-{
-	exit(0);
 }
 
 int main() {
@@ -114,9 +126,8 @@ int main() {
 
 	if (parola == sifre) // Eğer şifre doğru ise giriş başarılı
 	{
-		while (secenekSec(4) != 4)
+		while (secenekSec(5) != 5)
 		{
-			cout << "Giriş Başarılı. Yapacağınız İşlemi Seçin..." << endl;
 			cout << "1 - Para Yatır \n2 - Para Çek \n3 - Bakiye Göster \n4 - Çıkış Yap \nSeçim Yap : ";
 			int sec;
 			cin >> sec;
@@ -131,9 +142,8 @@ int main() {
 			{
 				if (parola == sifre)
 				{
-					while (secenekSec(4) != 4)
+					while (secenekSec(5) != 5)
 					{
-						cout << "Giriş Başarılı. Yapacağınız İşlemi Seçin..." << endl;
 						cout << "1 - Para Yatır \n2 - Para Çek \n3 - Bakiye Göster \n4 - Çıkış Yap \nSeçim Yap : ";
 						int sec;
 						cin >> sec;
